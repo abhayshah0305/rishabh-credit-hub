@@ -111,20 +111,41 @@ export const OperationalEfficiencyView = () => {
             </UITooltip>
           </TooltipProvider>
         </div>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={tatData}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-            <XAxis dataKey="month" className="text-xs" />
-            <YAxis className="text-xs" />
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart 
+            data={tatData}
+            margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+            barCategoryGap="30%"
+          >
+            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" opacity={0.3} />
+            <XAxis 
+              dataKey="month" 
+              tick={{ fontSize: 12 }}
+              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
+            />
+            <YAxis 
+              tick={{ fontSize: 12 }}
+              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              domain={[0, 4]}
+            />
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: "hsl(var(--card))", 
                 border: "1px solid hsl(var(--border))",
-                borderRadius: "var(--radius)"
-              }} 
+                borderRadius: "var(--radius)",
+                fontSize: "12px"
+              }}
+              formatter={(value) => [`${value} days`, "Average TAT"]}
             />
-            <Legend />
-            <Bar dataKey="tat" fill="hsl(var(--chart-2))" name="Avg TAT (Days)" />
+            <Bar 
+              dataKey="tat" 
+              fill="hsl(var(--chart-2))" 
+              name="Avg TAT (Days)"
+              radius={[4, 4, 0, 0]}
+              maxBarSize={60}
+            />
           </BarChart>
         </ResponsiveContainer>
       </Card>
