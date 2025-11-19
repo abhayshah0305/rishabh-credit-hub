@@ -106,96 +106,82 @@ export const CreditExposureView = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-lg font-semibold">Overdue Analysis</h3>
-            <TooltipProvider>
-              <UITooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  <p className="text-sm">Percentage breakdown of on-time vs overdue payments. Lower overdue percentages indicate better vendor payment discipline.</p>
-                </TooltipContent>
-              </UITooltip>
-            </TooltipProvider>
+      <Card className="p-6">
+        <div className="flex items-center gap-2 mb-6">
+          <h3 className="text-lg font-semibold">At-Risk Summary</h3>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Summary of overdue amounts by aging categories. Longer overdue periods indicate higher risk of potential losses and require immediate attention.</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <p className="text-sm font-medium text-destructive">Total Overdue</p>
+              <TooltipProvider>
+                <UITooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-sm">Total amount and number of vendors with overdue payments requiring immediate collection efforts and risk assessment.</p>
+                  </TooltipContent>
+                </UITooltip>
+              </TooltipProvider>
+            </div>
+            <p className="text-3xl font-bold text-destructive">₹1.6 Cr</p>
+            <p className="text-sm text-muted-foreground mt-1">23 vendors affected</p>
           </div>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart>
-              <Pie
-                data={overdueData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, value }) => `${name}: ${value}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {overdueData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </Card>
+          
+          <div className="bg-warning/10 border border-warning/20 rounded-lg p-4">
+            <p className="text-sm font-medium text-warning mb-2">High Priority</p>
+            <p className="text-3xl font-bold text-warning">₹0.8 Cr</p>
+            <p className="text-sm text-muted-foreground mt-1">31-60+ days overdue</p>
+          </div>
+          
+          <div className="bg-success/10 border border-success/20 rounded-lg p-4">
+            <p className="text-sm font-medium text-success mb-2">On-time Payments</p>
+            <p className="text-3xl font-bold text-success">96.8%</p>
+            <p className="text-sm text-muted-foreground mt-1">257 vendors performing</p>
+          </div>
+        </div>
 
-        <Card className="p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-lg font-semibold">At-Risk Summary</h3>
-            <TooltipProvider>
-              <UITooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  <p className="text-sm">Summary of overdue amounts by aging categories. Longer overdue periods indicate higher risk of potential losses and require immediate attention.</p>
-                </TooltipContent>
-              </UITooltip>
-            </TooltipProvider>
-          </div>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
-              <div>
-                <div className="flex items-center gap-2">
-                  <p className="text-sm text-muted-foreground">Total Overdue</p>
-                  <TooltipProvider>
-                    <UITooltip>
-                      <TooltipTrigger asChild>
-                        <Info className="h-3 w-3 text-muted-foreground cursor-help" />
-                      </TooltipTrigger>
-                      <TooltipContent className="max-w-xs">
-                        <p className="text-sm">Total amount and number of vendors with overdue payments requiring immediate collection efforts and risk assessment.</p>
-                      </TooltipContent>
-                    </UITooltip>
-                  </TooltipProvider>
-                </div>
-                <p className="text-2xl font-bold text-destructive">₹1.6 Cr</p>
+        <div className="space-y-3">
+          <h4 className="text-md font-semibold text-foreground">Overdue Breakdown</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg border">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <span className="text-sm font-medium">15-30 days</span>
               </div>
-              <div className="text-right">
-                <p className="text-sm text-muted-foreground">Vendors</p>
-                <p className="text-2xl font-bold">23</p>
-              </div>
+              <span className="font-semibold">₹0.8 Cr</span>
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Overdue 15-30 days</span>
-                <span className="font-medium">₹0.8 Cr</span>
+            
+            <div className="flex items-center justify-between p-3 bg-warning/10 rounded-lg border border-warning/20">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                <span className="text-sm font-medium">31-60 days</span>
               </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Overdue 31-60 days</span>
-                <span className="font-medium text-warning">₹0.5 Cr</span>
+              <span className="font-semibold text-warning">₹0.5 Cr</span>
+            </div>
+            
+            <div className="flex items-center justify-between p-3 bg-destructive/10 rounded-lg border border-destructive/20">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <span className="text-sm font-medium">60+ days</span>
               </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Overdue &gt; 60 days</span>
-                <span className="font-medium text-destructive">₹0.3 Cr</span>
-              </div>
+              <span className="font-semibold text-destructive">₹0.3 Cr</span>
             </div>
           </div>
-        </Card>
-      </div>
+        </div>
+      </Card>
     </div>
   );
 };

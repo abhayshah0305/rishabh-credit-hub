@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { KpiCard } from "./KpiCard";
 import { Card } from "@/components/ui/card";
-import { TrendingUp, Clock, FileText, DollarSign, CheckCircle, AlertTriangle, Info, Scale, UserPlus } from "lucide-react";
+import { TrendingUp, Clock, FileText, DollarSign, CheckCircle, AlertTriangle, Info, Scale, UserPlus, Target } from "lucide-react";
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -41,12 +41,12 @@ const vendorData = [
     totalBorrowed: "₹24.8 Cr",
     totalRepaid: "₹24.4 Cr",
     creditPeriod: "30 days",
-    avgTAT: "1.2 days",
     repaymentRate: "98.5%",
     lastPayment: "On-time",
     totalInvoices: 156,
     overdueAmount: "₹0",
-    status: "Active"
+    status: "Active",
+    programStatus: "Enrolled"
   },
   {
     id: "VND002",
@@ -59,12 +59,12 @@ const vendorData = [
     totalBorrowed: "₹18.9 Cr",
     totalRepaid: "₹18.4 Cr",
     creditPeriod: "45 days",
-    avgTAT: "1.8 days",
     repaymentRate: "97.2%",
     lastPayment: "On-time",
     totalInvoices: 132,
     overdueAmount: "₹0",
-    status: "Active"
+    status: "Active",
+    programStatus: "Enrolled"
   },
   {
     id: "VND003",
@@ -77,30 +77,30 @@ const vendorData = [
     totalBorrowed: "₹12.3 Cr",
     totalRepaid: "₹11.7 Cr",
     creditPeriod: "30 days",
-    avgTAT: "2.1 days",
     repaymentRate: "94.8%",
     lastPayment: "5 days late",
     totalInvoices: 89,
     overdueAmount: "₹0.3 Cr",
-    status: "Watch"
+    status: "Watch",
+    programStatus: "Enrolled"
   },
   {
     id: "VND004",
     name: "Delta Electronics Ltd.",
     creditScore: 85,
     riskTier: "A",
-    capitalUnlocked: "₹7.1 Cr",
-    creditLimit: "₹9 Cr",
-    utilization: "79%",
-    totalBorrowed: "₹21.7 Cr",
-    totalRepaid: "₹21.0 Cr",
-    creditPeriod: "30 days",
-    avgTAT: "1.5 days",
-    repaymentRate: "96.8%",
-    lastPayment: "On-time",
+    capitalUnlocked: "N/A",
+    creditLimit: "N/A",
+    utilization: "N/A",
+    totalBorrowed: "N/A",
+    totalRepaid: "N/A",
+    creditPeriod: "45 days",
+    repaymentRate: "N/A",
+    lastPayment: "Traditional terms",
     totalInvoices: 178,
     overdueAmount: "₹0",
-    status: "Active"
+    status: "Non-Program",
+    programStatus: "Not Enrolled"
   },
   {
     id: "VND005",
@@ -113,12 +113,12 @@ const vendorData = [
     totalBorrowed: "₹8.7 Cr",
     totalRepaid: "₹7.8 Cr",
     creditPeriod: "45 days",
-    avgTAT: "3.2 days",
     repaymentRate: "89.2%",
     lastPayment: "12 days late",
     totalInvoices: 67,
     overdueAmount: "₹0.8 Cr",
-    status: "Alert"
+    status: "Alert",
+    programStatus: "Enrolled"
   },
   {
     id: "VND006",
@@ -131,30 +131,30 @@ const vendorData = [
     totalBorrowed: "₹16.8 Cr",
     totalRepaid: "₹16.7 Cr",
     creditPeriod: "30 days",
-    avgTAT: "1.1 days",
     repaymentRate: "99.1%",
     lastPayment: "On-time",
     totalInvoices: 145,
     overdueAmount: "₹0",
-    status: "Active"
+    status: "Active",
+    programStatus: "Enrolled"
   },
   {
     id: "VND007",
     name: "Eta Steel Works Pvt. Ltd.",
     creditScore: 82,
     riskTier: "B",
-    capitalUnlocked: "₹3.4 Cr",
-    creditLimit: "₹5 Cr",
-    utilization: "68%",
-    totalBorrowed: "₹9.8 Cr",
-    totalRepaid: "₹9.4 Cr",
-    creditPeriod: "45 days",
-    avgTAT: "2.0 days",
-    repaymentRate: "95.6%",
-    lastPayment: "On-time",
+    capitalUnlocked: "N/A",
+    creditLimit: "N/A",
+    utilization: "N/A",
+    totalBorrowed: "N/A",
+    totalRepaid: "N/A",
+    creditPeriod: "60 days",
+    repaymentRate: "N/A",
+    lastPayment: "Traditional terms",
     totalInvoices: 98,
-    overdueAmount: "₹0.1 Cr",
-    status: "Active"
+    overdueAmount: "₹0",
+    status: "Non-Program",
+    programStatus: "Not Enrolled"
   },
   {
     id: "VND008",
@@ -167,12 +167,48 @@ const vendorData = [
     totalBorrowed: "₹13.1 Cr",
     totalRepaid: "₹12.2 Cr",
     creditPeriod: "30 days",
-    avgTAT: "1.9 days",
     repaymentRate: "93.4%",
     lastPayment: "2 days late",
     totalInvoices: 123,
     overdueAmount: "₹0.2 Cr",
-    status: "Active"
+    status: "Active",
+    programStatus: "Enrolled"
+  },
+  {
+    id: "VND009",
+    name: "Iota Automotive Parts",
+    creditScore: 74,
+    riskTier: "B",
+    capitalUnlocked: "N/A",
+    creditLimit: "N/A",
+    utilization: "N/A",
+    totalBorrowed: "N/A",
+    totalRepaid: "N/A",
+    creditPeriod: "45 days",
+    repaymentRate: "N/A",
+    lastPayment: "Traditional terms",
+    totalInvoices: 67,
+    overdueAmount: "₹0",
+    status: "Non-Program",
+    programStatus: "Eligible"
+  },
+  {
+    id: "VND010",
+    name: "Kappa Logistics Ltd.",
+    creditScore: 66,
+    riskTier: "C",
+    capitalUnlocked: "N/A",
+    creditLimit: "N/A",
+    utilization: "N/A",
+    totalBorrowed: "N/A",
+    totalRepaid: "N/A",
+    creditPeriod: "30 days",
+    repaymentRate: "N/A",
+    lastPayment: "Traditional terms",
+    totalInvoices: 43,
+    overdueAmount: "₹0",
+    status: "Non-Program",
+    programStatus: "Under Review"
   }
 ];
 
@@ -218,15 +254,6 @@ export const ExecutiveSummary = () => {
           tooltip="Total value and count of vendor invoices that have been financed through the credit enablement program, reflecting adoption and coverage."
         />
         <KpiCard
-          title="Amount Financed by NBFC"
-          value="₹48.5 Cr"
-          change={18.7}
-          changeLabel="vs last month"
-          trend="up"
-          icon={<DollarSign className="h-5 w-5" />}
-          tooltip="Total liquidity infused into Rishabh World's vendor ecosystem by the NBFC partner, representing immediate working capital availability."
-        />
-        <KpiCard
           title="Vendor Repayment Performance"
           value="96.8%"
           change={2.3}
@@ -261,6 +288,15 @@ export const ExecutiveSummary = () => {
           trend="up"
           icon={<UserPlus className="h-5 w-5" />}
           tooltip="New vendors successfully onboarded to the credit enablement program this quarter, expanding the ecosystem and increasing program adoption."
+        />
+        <KpiCard
+          title="Program Coverage"
+          value="87.5%"
+          change={12.3}
+          changeLabel="280 of 320 vendors"
+          trend="up"
+          icon={<Target className="h-5 w-5" />}
+          tooltip="Percentage of total vendor base enrolled in the credit enablement program. Higher coverage indicates better program adoption and ecosystem integration."
         />
       </div>
 
@@ -453,6 +489,7 @@ export const ExecutiveSummary = () => {
               <TableRow>
                 <TableHead className="w-[100px]">Vendor ID</TableHead>
                 <TableHead className="min-w-[200px]">Vendor Name</TableHead>
+                <TableHead className="text-center">Program Status</TableHead>
                 <TableHead className="text-center">Credit Score</TableHead>
                 <TableHead className="text-center">Risk Tier</TableHead>
                 <TableHead className="text-right">Capital Unlocked</TableHead>
@@ -461,7 +498,6 @@ export const ExecutiveSummary = () => {
                 <TableHead className="text-right">Total Borrowed</TableHead>
                 <TableHead className="text-right">Total Repaid</TableHead>
                 <TableHead className="text-center">Credit Period</TableHead>
-                <TableHead className="text-center">Avg TAT</TableHead>
                 <TableHead className="text-center">Repayment Rate</TableHead>
                 <TableHead className="text-center">Last Payment</TableHead>
                 <TableHead className="text-center">Total Invoices</TableHead>
@@ -474,6 +510,16 @@ export const ExecutiveSummary = () => {
                 <TableRow key={vendor.id} className="hover:bg-muted/50">
                   <TableCell className="font-mono text-xs">{vendor.id}</TableCell>
                   <TableCell className="font-medium">{vendor.name}</TableCell>
+                  <TableCell className="text-center">
+                    <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                      vendor.programStatus === "Enrolled" ? "bg-success/10 text-success" :
+                      vendor.programStatus === "Eligible" ? "bg-primary/10 text-primary" :
+                      vendor.programStatus === "Under Review" ? "bg-warning/10 text-warning" :
+                      "bg-muted/10 text-muted-foreground"
+                    }`}>
+                      {vendor.programStatus}
+                    </span>
+                  </TableCell>
                   <TableCell className="text-center">
                     <span className={`font-semibold ${
                       vendor.creditScore >= 90 ? "text-success" :
@@ -508,15 +554,6 @@ export const ExecutiveSummary = () => {
                   <TableCell className="text-right font-medium text-primary">{vendor.totalBorrowed}</TableCell>
                   <TableCell className="text-right font-medium text-success">{vendor.totalRepaid}</TableCell>
                   <TableCell className="text-center text-muted-foreground">{vendor.creditPeriod}</TableCell>
-                  <TableCell className="text-center">
-                    <span className={`font-medium ${
-                      parseFloat(vendor.avgTAT) <= 1.5 ? "text-success" :
-                      parseFloat(vendor.avgTAT) <= 2.5 ? "text-primary" :
-                      "text-warning"
-                    }`}>
-                      {vendor.avgTAT}
-                    </span>
-                  </TableCell>
                   <TableCell className="text-center">
                     <span className={`font-medium ${
                       parseFloat(vendor.repaymentRate) >= 97 ? "text-success" :
@@ -559,8 +596,9 @@ export const ExecutiveSummary = () => {
             </TableBody>
           </Table>
         </div>
-        <div className="mt-4 text-xs text-muted-foreground">
-          <p>Showing {vendorData.length} of 280 active vendors. Credit scores updated daily. Risk tiers: A (90-100), B (75-89), C (60-74), D (&lt;60).</p>
+        <div className="mt-4 text-xs text-muted-foreground space-y-1">
+          <p>Showing {vendorData.length} of 320 total vendors. Program Enrolled: {vendorData.filter(v => v.programStatus === "Enrolled").length}, Non-Program: {vendorData.filter(v => v.programStatus === "Not Enrolled" || v.programStatus === "Eligible" || v.programStatus === "Under Review").length}</p>
+          <p>Credit scores updated daily. Risk tiers: A (90-100), B (75-89), C (60-74), D (&lt;60). Program coverage: 87.5%</p>
         </div>
       </Card>
     </div>

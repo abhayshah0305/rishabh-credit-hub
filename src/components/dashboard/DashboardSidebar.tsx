@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
-  TrendingUp,
   AlertCircle,
   Users,
   Activity,
@@ -16,7 +15,6 @@ interface DashboardSidebarProps {
 
 const sections = [
   { id: "summary", label: "Executive Summary", icon: LayoutDashboard },
-  { id: "capital", label: "Working Capital", icon: TrendingUp },
   { id: "exposure", label: "Credit Exposure", icon: AlertCircle },
   { id: "vendors", label: "Vendor Performance", icon: Users },
   { id: "efficiency", label: "Operational Efficiency", icon: Activity },

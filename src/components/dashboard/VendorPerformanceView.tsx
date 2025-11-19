@@ -235,6 +235,106 @@ export const VendorPerformanceView = () => {
           Bubble size represents dispute frequency
         </p>
       </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Program vs Non-Program Vendors</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Comparison between vendors enrolled in the credit enablement program vs those operating on traditional payment terms.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-success/10 border border-success/20 rounded-lg p-4">
+                <p className="text-sm font-medium text-success mb-1">Program Enrolled</p>
+                <p className="text-3xl font-bold text-success">280</p>
+                <p className="text-xs text-muted-foreground mt-1">87.5% of total vendors</p>
+              </div>
+              <div className="bg-muted/50 border rounded-lg p-4">
+                <p className="text-sm font-medium text-muted-foreground mb-1">Non-Program</p>
+                <p className="text-3xl font-bold text-foreground">40</p>
+                <p className="text-xs text-muted-foreground mt-1">12.5% traditional terms</p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Eligible for enrollment</span>
+                <span className="font-medium text-primary">25 vendors</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Under review</span>
+                <span className="font-medium text-warning">8 vendors</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Not eligible</span>
+                <span className="font-medium text-muted-foreground">7 vendors</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Non-Program Vendor Insights</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Key insights about vendors not yet enrolled in the credit enablement program and potential conversion opportunities.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
+          <div className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg border border-primary/20">
+                <div>
+                  <p className="text-sm font-medium text-primary">Conversion Potential</p>
+                  <p className="text-xs text-muted-foreground mt-1">High-value vendors ready for enrollment</p>
+                </div>
+                <p className="text-2xl font-bold text-primary">₹12.5 Cr</p>
+              </div>
+              
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold">Top Non-Program Vendors</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-sm">
+                    <span>Delta Electronics Ltd.</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">₹7.1 Cr potential</span>
+                      <span className="bg-success/10 text-success px-2 py-1 rounded text-xs">A-tier</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span>Iota Automotive Parts</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">₹3.2 Cr potential</span>
+                      <span className="bg-primary/10 text-primary px-2 py-1 rounded text-xs">B-tier</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span>Eta Steel Works</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">₹2.2 Cr potential</span>
+                      <span className="bg-primary/10 text-primary px-2 py-1 rounded text-xs">B-tier</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };

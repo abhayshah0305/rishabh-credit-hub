@@ -6,14 +6,6 @@ import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger }
 import { Info } from "lucide-react";
 import { TimeFilter } from "@/components/ui/time-filter";
 
-const tatData = [
-  { month: "Jan", tat: 3.2 },
-  { month: "Feb", tat: 2.8 },
-  { month: "Mar", tat: 2.5 },
-  { month: "Apr", tat: 2.1 },
-  { month: "May", tat: 1.8 },
-  { month: "Jun", tat: 1.5 },
-];
 
 const exceptionData = [
   { category: "Invoice Mismatch", count: 23, resolved: 20 },
@@ -38,29 +30,12 @@ export const OperationalEfficiencyView = () => {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold text-foreground">Operational Efficiency</h2>
-          <p className="text-muted-foreground mt-2">TAT, SLA compliance, and exception tracking</p>
+          <p className="text-muted-foreground mt-2">SLA compliance and exception tracking</p>
         </div>
         <TimeFilter value={timeRange} onValueChange={setTimeRange} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="p-6">
-          <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-lg font-semibold">Average TAT</h3>
-            <TooltipProvider>
-              <UITooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  <p className="text-sm">Average Turnaround Time from invoice submission to completion of processing and approval workflow.</p>
-                </TooltipContent>
-              </UITooltip>
-            </TooltipProvider>
-          </div>
-          <p className="text-4xl font-bold text-accent">1.5 Days</p>
-          <p className="text-sm text-success mt-2">↓ 53% vs last quarter</p>
-        </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-2">
             <h3 className="text-lg font-semibold">SLA Compliance</h3>
@@ -97,58 +72,6 @@ export const OperationalEfficiencyView = () => {
         </Card>
       </div>
 
-      <Card className="p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <h3 className="text-lg font-semibold">Turnaround Time Trend (Days)</h3>
-          <TooltipProvider>
-            <UITooltip>
-              <TooltipTrigger asChild>
-                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
-                <p className="text-sm">Monthly trend showing improvement in processing turnaround time. Lower values indicate better operational efficiency.</p>
-              </TooltipContent>
-            </UITooltip>
-          </TooltipProvider>
-        </div>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart 
-            data={tatData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-            barCategoryGap="30%"
-          >
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" opacity={0.3} />
-            <XAxis 
-              dataKey="month" 
-              tick={{ fontSize: 12 }}
-              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
-            />
-            <YAxis 
-              tick={{ fontSize: 12 }}
-              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              domain={[0, 4]}
-            />
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: "hsl(var(--card))", 
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "var(--radius)",
-                fontSize: "12px"
-              }}
-              formatter={(value) => [`${value} days`, "Average TAT"]}
-            />
-            <Bar 
-              dataKey="tat" 
-              fill="hsl(var(--chart-2))" 
-              name="Avg TAT (Days)"
-              radius={[4, 4, 0, 0]}
-              maxBarSize={60}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
