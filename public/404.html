@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages SPA routing fallback
+      // Redirect all 404s to index.html with the original path as a query parameter
+      const path = window.location.pathname.slice(1);
+      const query = window.location.search;
+      const hash = window.location.hash;
+      
+      // Redirect to index.html with path info
+      window.location.replace(
+        window.location.origin + '/rishabh-credit-hub/' + 
+        '?redirect=' + encodeURIComponent(path) + 
+        (query ? '&' + query.slice(1) : '') +
+        (hash ? hash : '')
+      );
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
