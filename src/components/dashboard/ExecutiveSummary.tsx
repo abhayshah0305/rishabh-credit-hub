@@ -196,7 +196,7 @@ export const ExecutiveSummary = () => {
           change={23.5}
           changeLabel="vs last month"
           trend="up"
-          icon={<TrendingUp className="h-6 w-6" />}
+          icon={<TrendingUp className="h-5 w-5" />}
           tooltip="Total capital freed up through NBFC instant settlement, enabling vendors to reinvest in their business operations without waiting for payment cycles."
         />
         <KpiCard
@@ -205,7 +205,7 @@ export const ExecutiveSummary = () => {
           change={88.9}
           changeLabel="from 45 days"
           trend="up"
-          icon={<Clock className="h-6 w-6" />}
+          icon={<Clock className="h-5 w-5" />}
           tooltip="Average time reduction from invoice submission to vendor payment. Previous cycle was 45 days, now compressed to 5 days through NBFC financing."
         />
         <KpiCard
@@ -214,7 +214,7 @@ export const ExecutiveSummary = () => {
           change={15.2}
           changeLabel="1,247 invoices"
           trend="up"
-          icon={<FileText className="h-6 w-6" />}
+          icon={<FileText className="h-5 w-5" />}
           tooltip="Total value and count of vendor invoices that have been financed through the credit enablement program, reflecting adoption and coverage."
         />
         <KpiCard
@@ -223,7 +223,7 @@ export const ExecutiveSummary = () => {
           change={18.7}
           changeLabel="vs last month"
           trend="up"
-          icon={<DollarSign className="h-6 w-6" />}
+          icon={<DollarSign className="h-5 w-5" />}
           tooltip="Total liquidity infused into Rishabh World's vendor ecosystem by the NBFC partner, representing immediate working capital availability."
         />
         <KpiCard
@@ -232,7 +232,7 @@ export const ExecutiveSummary = () => {
           change={2.3}
           changeLabel="on-time rate"
           trend="up"
-          icon={<CheckCircle className="h-6 w-6" />}
+          icon={<CheckCircle className="h-5 w-5" />}
           tooltip="Percentage of vendors making on-time repayments to the NBFC. Higher rates indicate lower credit risk and healthy vendor financial behavior."
         />
         <KpiCard
@@ -241,7 +241,7 @@ export const ExecutiveSummary = () => {
           change={-75.4}
           changeLabel="risk transfer active"
           trend="up"
-          icon={<AlertTriangle className="h-6 w-6" />}
+          icon={<AlertTriangle className="h-5 w-5" />}
           tooltip="Rishabh World's remaining financial exposure after risk transfer to NBFC. Lower exposure indicates successful risk mitigation strategy."
         />
         <KpiCard
@@ -250,7 +250,7 @@ export const ExecutiveSummary = () => {
           change={40.0}
           changeLabel="₹2.1 Cr involved"
           trend="down"
-          icon={<Scale className="h-6 w-6" />}
+          icon={<Scale className="h-5 w-5" />}
           tooltip="Vendors who exceeded credit periods leading to legal disputes. Includes 7 active cases worth ₹2.1 Cr from 5 vendors with payment defaults beyond 90+ days."
         />
         <KpiCard
@@ -259,7 +259,7 @@ export const ExecutiveSummary = () => {
           change={25.7}
           changeLabel="this quarter"
           trend="up"
-          icon={<UserPlus className="h-6 w-6" />}
+          icon={<UserPlus className="h-5 w-5" />}
           tooltip="New vendors successfully onboarded to the credit enablement program this quarter, expanding the ecosystem and increasing program adoption."
         />
       </div>
