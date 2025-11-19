@@ -24,21 +24,11 @@ const Index = () => {
         return <OperationalEfficiencyView />;
       case "alerts":
         return <AlertsView />;
-      case "simulation":
-        return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-3xl font-bold text-foreground">Scenario Planning & Simulation</h2>
-              <p className="text-muted-foreground mt-2">Coming soon - Model different credit scenarios</p>
-            </div>
-          </div>
-        );
       case "reports":
         return (
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl font-bold text-foreground">Monthly Reports</h2>
-              <p className="text-muted-foreground mt-2">Coming soon - Export and download reports</p>
             </div>
           </div>
         );

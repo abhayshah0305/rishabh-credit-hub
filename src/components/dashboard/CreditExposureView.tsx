@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 const vendorExposure = [
   { vendor: "Vendor A", exposure: 8.5, risk: "low" },
@@ -31,7 +33,19 @@ export const CreditExposureView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Exposure by Vendor (₹ Cr)</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Exposure by Vendor (₹ Cr)</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Outstanding credit exposure by individual vendor. Shows concentration risk and helps identify top exposure accounts requiring close monitoring.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={vendorExposure} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -50,7 +64,19 @@ export const CreditExposureView = () => {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Exposure by Ageing Bucket</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Exposure by Ageing Bucket</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Breakdown of credit exposure by age of outstanding amounts. Earlier buckets (0-30 days) represent lower risk compared to aged exposures.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -75,7 +101,19 @@ export const CreditExposureView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Overdue Analysis</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Overdue Analysis</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Percentage breakdown of on-time vs overdue payments. Lower overdue percentages indicate better vendor payment discipline.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
@@ -98,11 +136,35 @@ export const CreditExposureView = () => {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">At-Risk Summary</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">At-Risk Summary</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Summary of overdue amounts by aging categories. Longer overdue periods indicate higher risk of potential losses and require immediate attention.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-4 bg-muted/50 rounded-lg">
               <div>
-                <p className="text-sm text-muted-foreground">Total Overdue</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-muted-foreground">Total Overdue</p>
+                  <TooltipProvider>
+                    <UITooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p className="text-sm">Total amount and number of vendors with overdue payments requiring immediate collection efforts and risk assessment.</p>
+                      </TooltipContent>
+                    </UITooltip>
+                  </TooltipProvider>
+                </div>
                 <p className="text-2xl font-bold text-destructive">₹1.6 Cr</p>
               </div>
               <div className="text-right">

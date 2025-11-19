@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ZAxis } from "recharts";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 const scoreDistribution = [
   { tier: "A (90-100)", count: 145 },
@@ -29,7 +31,19 @@ export const VendorPerformanceView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Credit Score Distribution</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Credit Score Distribution</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Distribution of vendor credit scores across rating tiers: A (90-100), B (75-89), C (60-74), D (&lt;60). Higher scores indicate lower credit risk.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={scoreDistribution}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -49,25 +63,73 @@ export const VendorPerformanceView = () => {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Score Trends</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Score Trends</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Trend analysis showing vendors with improving, declining, or stable credit scores over the monitoring period.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <div className="space-y-4 pt-4">
             <div className="flex items-center justify-between p-4 bg-success/10 rounded-lg border border-success/20">
               <div>
-                <p className="text-sm text-muted-foreground">Improving Scores</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-muted-foreground">Improving Scores</p>
+                  <TooltipProvider>
+                    <UITooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p className="text-sm">Vendors showing upward credit score movement, indicating improved financial health and reduced risk profile.</p>
+                      </TooltipContent>
+                    </UITooltip>
+                  </TooltipProvider>
+                </div>
                 <p className="text-2xl font-bold text-success">67 Vendors</p>
               </div>
               <div className="text-4xl text-success">↑</div>
             </div>
             <div className="flex items-center justify-between p-4 bg-destructive/10 rounded-lg border border-destructive/20">
               <div>
-                <p className="text-sm text-muted-foreground">Declining Scores</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-muted-foreground">Declining Scores</p>
+                  <TooltipProvider>
+                    <UITooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p className="text-sm">Vendors showing downward credit score movement, requiring closer monitoring and potential risk mitigation measures.</p>
+                      </TooltipContent>
+                    </UITooltip>
+                  </TooltipProvider>
+                </div>
                 <p className="text-2xl font-bold text-destructive">12 Vendors</p>
               </div>
               <div className="text-4xl text-destructive">↓</div>
             </div>
             <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
               <div>
-                <p className="text-sm text-muted-foreground">Stable Scores</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-sm text-muted-foreground">Stable Scores</p>
+                  <TooltipProvider>
+                    <UITooltip>
+                      <TooltipTrigger asChild>
+                        <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p className="text-sm">Vendors maintaining consistent credit scores with minimal fluctuation, indicating stable financial performance.</p>
+                      </TooltipContent>
+                    </UITooltip>
+                  </TooltipProvider>
+                </div>
                 <p className="text-2xl font-bold text-foreground">201 Vendors</p>
               </div>
               <div className="text-4xl text-muted-foreground">→</div>
@@ -77,7 +139,19 @@ export const VendorPerformanceView = () => {
       </div>
 
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Purchase Cycles vs Repayment Time</h3>
+        <div className="flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-semibold">Purchase Cycles vs Repayment Time</h3>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Scatter plot showing relationship between vendor purchase frequency and average repayment time. Bubble size indicates dispute frequency. Helps identify patterns in vendor behavior.</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
         <ResponsiveContainer width="100%" height={350}>
           <ScatterChart>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />

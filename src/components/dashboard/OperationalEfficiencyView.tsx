@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 const tatData = [
   { month: "Jan", tat: 3.2 },
@@ -36,24 +38,72 @@ export const OperationalEfficiencyView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-2">Average TAT</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <h3 className="text-lg font-semibold">Average TAT</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Average Turnaround Time from invoice submission to completion of processing and approval workflow.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <p className="text-4xl font-bold text-accent">1.5 Days</p>
           <p className="text-sm text-success mt-2">↓ 53% vs last quarter</p>
         </Card>
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-2">SLA Compliance</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <h3 className="text-lg font-semibold">SLA Compliance</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Percentage of transactions processed within defined Service Level Agreement timeframes. Measures operational efficiency.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <p className="text-4xl font-bold text-success">98.5%</p>
           <p className="text-sm text-muted-foreground mt-2">Target: 95%</p>
         </Card>
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-2">Total Exceptions</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <h3 className="text-lg font-semibold">Total Exceptions</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Number of processing exceptions requiring manual intervention, including invoice mismatches, missing documents, and disputes.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <p className="text-4xl font-bold text-foreground">76</p>
           <p className="text-sm text-success mt-2">65 Resolved</p>
         </Card>
       </div>
 
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Turnaround Time Trend (Days)</h3>
+        <div className="flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-semibold">Turnaround Time Trend (Days)</h3>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Monthly trend showing improvement in processing turnaround time. Lower values indicate better operational efficiency.</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={tatData}>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -74,7 +124,19 @@ export const OperationalEfficiencyView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Exceptions by Category</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Exceptions by Category</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Breakdown of exceptions by type, showing total occurrences vs resolved cases. Helps identify recurring issues and resolution effectiveness.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={exceptionData}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -95,7 +157,19 @@ export const OperationalEfficiencyView = () => {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Recent Exceptions</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Recent Exceptions</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Latest exceptions requiring attention, showing vendor, exception type, amount involved, and current resolution status.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <Table>
             <TableHeader>
               <TableRow>

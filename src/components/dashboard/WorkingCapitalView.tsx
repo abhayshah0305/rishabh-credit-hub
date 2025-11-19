@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 const capitalData = [
   { month: "Jan", unlocked: 32, target: 30 },
@@ -29,7 +31,19 @@ export const WorkingCapitalView = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Working Capital Unlocked (₹ Cr)</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Working Capital Unlocked (₹ Cr)</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Amount of capital freed up for vendors through NBFC financing vs monthly targets. Shows actual performance against planned objectives.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={capitalData}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -50,7 +64,19 @@ export const WorkingCapitalView = () => {
         </Card>
 
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Credit Cycle Compression (Days)</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-lg font-semibold">Credit Cycle Compression (Days)</h3>
+            <TooltipProvider>
+              <UITooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs">
+                  <p className="text-sm">Reduction in payment cycle time from invoice submission to vendor payment. Shows progress from traditional 45-day cycles to instant settlements.</p>
+                </TooltipContent>
+              </UITooltip>
+            </TooltipProvider>
+          </div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={cycleData}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -77,20 +103,68 @@ export const WorkingCapitalView = () => {
       </div>
 
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Key Insights</h3>
+        <div className="flex items-center gap-2 mb-4">
+          <h3 className="text-lg font-semibold">Key Insights</h3>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Key performance metrics related to working capital efficiency and program effectiveness.</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">NBFC Disbursal SLA</p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-muted-foreground">NBFC Disbursal SLA</p>
+              <TooltipProvider>
+                <UITooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-sm">Average time taken by NBFC to disburse funds to vendors after invoice approval. T+0.5 means same-day settlement within 12 hours.</p>
+                  </TooltipContent>
+                </UITooltip>
+              </TooltipProvider>
+            </div>
             <p className="text-2xl font-bold text-success">T+0.5</p>
             <p className="text-xs text-muted-foreground">Average settlement time</p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">Cash Flow Variance</p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-muted-foreground">Cash Flow Variance</p>
+              <TooltipProvider>
+                <UITooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-sm">Monthly variation in cash flow patterns. Low variance indicates predictable and stable cash flow, reducing business uncertainty.</p>
+                  </TooltipContent>
+                </UITooltip>
+              </TooltipProvider>
+            </div>
             <p className="text-2xl font-bold text-foreground">±2.3%</p>
             <p className="text-xs text-muted-foreground">Predictability score: High</p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">Monthly Growth</p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-muted-foreground">Monthly Growth</p>
+              <TooltipProvider>
+                <UITooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    <p className="text-sm">Month-over-month growth rate in working capital unlocked through the NBFC financing program, indicating program adoption and expansion.</p>
+                  </TooltipContent>
+                </UITooltip>
+              </TooltipProvider>
+            </div>
             <p className="text-2xl font-bold text-accent">+23.5%</p>
             <p className="text-xs text-muted-foreground">Capital unlock rate</p>
           </div>

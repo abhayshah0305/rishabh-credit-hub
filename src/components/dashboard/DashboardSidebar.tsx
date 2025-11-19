@@ -5,7 +5,6 @@ import {
   AlertCircle,
   Users,
   Activity,
-  Settings,
   FileText,
   Bell,
 } from "lucide-react";
@@ -21,7 +20,6 @@ const sections = [
   { id: "exposure", label: "Credit Exposure", icon: AlertCircle },
   { id: "vendors", label: "Vendor Performance", icon: Users },
   { id: "efficiency", label: "Operational Efficiency", icon: Activity },
-  { id: "simulation", label: "Scenario Planning", icon: Settings },
   { id: "alerts", label: "Alerts & Warnings", icon: Bell },
   { id: "reports", label: "Monthly Reports", icon: FileText },
 ];
