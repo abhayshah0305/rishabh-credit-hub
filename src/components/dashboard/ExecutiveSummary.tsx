@@ -1,7 +1,9 @@
 import { KpiCard } from "./KpiCard";
 import { Card } from "@/components/ui/card";
-import { TrendingUp, Clock, FileText, DollarSign, CheckCircle, AlertTriangle } from "lucide-react";
+import { TrendingUp, Clock, FileText, DollarSign, CheckCircle, AlertTriangle, Info } from "lucide-react";
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const monthlyTrend = [
   { month: "Jan", capital: 32, invoices: 890, repayment: 94.2 },
@@ -23,6 +25,153 @@ const nbfcPerformance = [
   { metric: "T+0.5", value: 38 },
   { metric: "T+1", value: 15 },
   { metric: ">T+1", value: 2 },
+];
+
+const vendorData = [
+  {
+    id: "VND001",
+    name: "Alpha Industries Ltd.",
+    creditScore: 92,
+    riskTier: "A",
+    capitalUnlocked: "₹8.5 Cr",
+    creditLimit: "₹12 Cr",
+    utilization: "71%",
+    totalBorrowed: "₹24.8 Cr",
+    totalRepaid: "₹24.4 Cr",
+    creditPeriod: "30 days",
+    avgTAT: "1.2 days",
+    repaymentRate: "98.5%",
+    lastPayment: "On-time",
+    totalInvoices: 156,
+    overdueAmount: "₹0",
+    status: "Active"
+  },
+  {
+    id: "VND002",
+    name: "Beta Manufacturing Co.",
+    creditScore: 88,
+    riskTier: "A",
+    capitalUnlocked: "₹6.2 Cr",
+    creditLimit: "₹8 Cr",
+    utilization: "78%",
+    totalBorrowed: "₹18.9 Cr",
+    totalRepaid: "₹18.4 Cr",
+    creditPeriod: "45 days",
+    avgTAT: "1.8 days",
+    repaymentRate: "97.2%",
+    lastPayment: "On-time",
+    totalInvoices: 132,
+    overdueAmount: "₹0",
+    status: "Active"
+  },
+  {
+    id: "VND003",
+    name: "Gamma Textiles Pvt. Ltd.",
+    creditScore: 76,
+    riskTier: "B",
+    capitalUnlocked: "₹4.8 Cr",
+    creditLimit: "₹6 Cr",
+    utilization: "80%",
+    totalBorrowed: "₹12.3 Cr",
+    totalRepaid: "₹11.7 Cr",
+    creditPeriod: "30 days",
+    avgTAT: "2.1 days",
+    repaymentRate: "94.8%",
+    lastPayment: "5 days late",
+    totalInvoices: 89,
+    overdueAmount: "₹0.3 Cr",
+    status: "Watch"
+  },
+  {
+    id: "VND004",
+    name: "Delta Electronics Ltd.",
+    creditScore: 85,
+    riskTier: "A",
+    capitalUnlocked: "₹7.1 Cr",
+    creditLimit: "₹9 Cr",
+    utilization: "79%",
+    totalBorrowed: "₹21.7 Cr",
+    totalRepaid: "₹21.0 Cr",
+    creditPeriod: "30 days",
+    avgTAT: "1.5 days",
+    repaymentRate: "96.8%",
+    lastPayment: "On-time",
+    totalInvoices: 178,
+    overdueAmount: "₹0",
+    status: "Active"
+  },
+  {
+    id: "VND005",
+    name: "Epsilon Chemicals Ltd.",
+    creditScore: 69,
+    riskTier: "C",
+    capitalUnlocked: "₹2.9 Cr",
+    creditLimit: "₹4 Cr",
+    utilization: "73%",
+    totalBorrowed: "₹8.7 Cr",
+    totalRepaid: "₹7.8 Cr",
+    creditPeriod: "45 days",
+    avgTAT: "3.2 days",
+    repaymentRate: "89.2%",
+    lastPayment: "12 days late",
+    totalInvoices: 67,
+    overdueAmount: "₹0.8 Cr",
+    status: "Alert"
+  },
+  {
+    id: "VND006",
+    name: "Zeta Packaging Solutions",
+    creditScore: 91,
+    riskTier: "A",
+    capitalUnlocked: "₹5.6 Cr",
+    creditLimit: "₹7.5 Cr",
+    utilization: "75%",
+    totalBorrowed: "₹16.8 Cr",
+    totalRepaid: "₹16.7 Cr",
+    creditPeriod: "30 days",
+    avgTAT: "1.1 days",
+    repaymentRate: "99.1%",
+    lastPayment: "On-time",
+    totalInvoices: 145,
+    overdueAmount: "₹0",
+    status: "Active"
+  },
+  {
+    id: "VND007",
+    name: "Eta Steel Works Pvt. Ltd.",
+    creditScore: 82,
+    riskTier: "B",
+    capitalUnlocked: "₹3.4 Cr",
+    creditLimit: "₹5 Cr",
+    utilization: "68%",
+    totalBorrowed: "₹9.8 Cr",
+    totalRepaid: "₹9.4 Cr",
+    creditPeriod: "45 days",
+    avgTAT: "2.0 days",
+    repaymentRate: "95.6%",
+    lastPayment: "On-time",
+    totalInvoices: 98,
+    overdueAmount: "₹0.1 Cr",
+    status: "Active"
+  },
+  {
+    id: "VND008",
+    name: "Theta Food Processing",
+    creditScore: 78,
+    riskTier: "B",
+    capitalUnlocked: "₹4.2 Cr",
+    creditLimit: "₹6 Cr",
+    utilization: "70%",
+    totalBorrowed: "₹13.1 Cr",
+    totalRepaid: "₹12.2 Cr",
+    creditPeriod: "30 days",
+    avgTAT: "1.9 days",
+    repaymentRate: "93.4%",
+    lastPayment: "2 days late",
+    totalInvoices: 123,
+    overdueAmount: "₹0.2 Cr",
+    status: "Active"
+  }
 ];
 
 export const ExecutiveSummary = () => {
@@ -256,6 +405,137 @@ export const ExecutiveSummary = () => {
             <p className="text-3xl font-bold text-accent">90%</p>
             <p className="text-xs text-muted-foreground">vs manual credit ops</p>
           </div>
+        </div>
+      </Card>
+
+      <Card className="p-6">
+        <div className="flex items-center gap-2 mb-6">
+          <h3 className="text-lg font-semibold">Vendor Portfolio Overview</h3>
+          <TooltipProvider>
+            <UITooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Comprehensive view of all vendors with key financial metrics, credit performance, and risk indicators for portfolio management.</p>
+              </TooltipContent>
+            </UITooltip>
+          </TooltipProvider>
+        </div>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Vendor ID</TableHead>
+                <TableHead className="min-w-[200px]">Vendor Name</TableHead>
+                <TableHead className="text-center">Credit Score</TableHead>
+                <TableHead className="text-center">Risk Tier</TableHead>
+                <TableHead className="text-right">Capital Unlocked</TableHead>
+                <TableHead className="text-right">Credit Limit</TableHead>
+                <TableHead className="text-center">Utilization</TableHead>
+                <TableHead className="text-right">Total Borrowed</TableHead>
+                <TableHead className="text-right">Total Repaid</TableHead>
+                <TableHead className="text-center">Credit Period</TableHead>
+                <TableHead className="text-center">Avg TAT</TableHead>
+                <TableHead className="text-center">Repayment Rate</TableHead>
+                <TableHead className="text-center">Last Payment</TableHead>
+                <TableHead className="text-center">Total Invoices</TableHead>
+                <TableHead className="text-right">Overdue Amount</TableHead>
+                <TableHead className="text-center">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {vendorData.map((vendor) => (
+                <TableRow key={vendor.id} className="hover:bg-muted/50">
+                  <TableCell className="font-mono text-xs">{vendor.id}</TableCell>
+                  <TableCell className="font-medium">{vendor.name}</TableCell>
+                  <TableCell className="text-center">
+                    <span className={`font-semibold ${
+                      vendor.creditScore >= 90 ? "text-success" :
+                      vendor.creditScore >= 75 ? "text-primary" :
+                      vendor.creditScore >= 60 ? "text-warning" :
+                      "text-destructive"
+                    }`}>
+                      {vendor.creditScore}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                      vendor.riskTier === "A" ? "bg-success/10 text-success" :
+                      vendor.riskTier === "B" ? "bg-primary/10 text-primary" :
+                      vendor.riskTier === "C" ? "bg-warning/10 text-warning" :
+                      "bg-destructive/10 text-destructive"
+                    }`}>
+                      {vendor.riskTier}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right font-medium">{vendor.capitalUnlocked}</TableCell>
+                  <TableCell className="text-right text-muted-foreground">{vendor.creditLimit}</TableCell>
+                  <TableCell className="text-center">
+                    <span className={`font-medium ${
+                      parseInt(vendor.utilization) > 80 ? "text-warning" :
+                      parseInt(vendor.utilization) > 60 ? "text-primary" :
+                      "text-muted-foreground"
+                    }`}>
+                      {vendor.utilization}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right font-medium text-primary">{vendor.totalBorrowed}</TableCell>
+                  <TableCell className="text-right font-medium text-success">{vendor.totalRepaid}</TableCell>
+                  <TableCell className="text-center text-muted-foreground">{vendor.creditPeriod}</TableCell>
+                  <TableCell className="text-center">
+                    <span className={`font-medium ${
+                      parseFloat(vendor.avgTAT) <= 1.5 ? "text-success" :
+                      parseFloat(vendor.avgTAT) <= 2.5 ? "text-primary" :
+                      "text-warning"
+                    }`}>
+                      {vendor.avgTAT}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className={`font-medium ${
+                      parseFloat(vendor.repaymentRate) >= 97 ? "text-success" :
+                      parseFloat(vendor.repaymentRate) >= 90 ? "text-primary" :
+                      "text-destructive"
+                    }`}>
+                      {vendor.repaymentRate}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className={`text-xs ${
+                      vendor.lastPayment === "On-time" ? "text-success" :
+                      vendor.lastPayment.includes("late") ? "text-destructive" :
+                      "text-muted-foreground"
+                    }`}>
+                      {vendor.lastPayment}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center text-muted-foreground">{vendor.totalInvoices}</TableCell>
+                  <TableCell className="text-right">
+                    <span className={`font-medium ${
+                      vendor.overdueAmount === "₹0" ? "text-success" :
+                      "text-destructive"
+                    }`}>
+                      {vendor.overdueAmount}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                      vendor.status === "Active" ? "bg-success/10 text-success" :
+                      vendor.status === "Watch" ? "bg-warning/10 text-warning" :
+                      vendor.status === "Alert" ? "bg-destructive/10 text-destructive" :
+                      "bg-muted/10 text-muted-foreground"
+                    }`}>
+                      {vendor.status}
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="mt-4 text-xs text-muted-foreground">
+          <p>Showing {vendorData.length} of 280 active vendors. Credit scores updated daily. Risk tiers: A (90-100), B (75-89), C (60-74), D (&lt;60).</p>
         </div>
       </Card>
     </div>
