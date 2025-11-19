@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
+import { TimeFilter } from "@/components/ui/time-filter";
 
 const tatData = [
   { month: "Jan", tat: 3.2 },
@@ -29,11 +31,16 @@ const recentExceptions = [
 ];
 
 export const OperationalEfficiencyView = () => {
+  const [timeRange, setTimeRange] = useState("30d");
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-foreground">Operational Efficiency</h2>
-        <p className="text-muted-foreground mt-2">TAT, SLA compliance, and exception tracking</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-foreground">Operational Efficiency</h2>
+          <p className="text-muted-foreground mt-2">TAT, SLA compliance, and exception tracking</p>
+        </div>
+        <TimeFilter value={timeRange} onValueChange={setTimeRange} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
+import { TimeFilter } from "@/components/ui/time-filter";
 
 const capitalData = [
   { month: "Jan", unlocked: 32, target: 30 },
@@ -22,11 +24,16 @@ const cycleData = [
 ];
 
 export const WorkingCapitalView = () => {
+  const [timeRange, setTimeRange] = useState("180d");
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-foreground">Working Capital Impact</h2>
-        <p className="text-muted-foreground mt-2">Capital unlocked and cycle time reduction trends</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-foreground">Working Capital Impact</h2>
+          <p className="text-muted-foreground mt-2">Capital unlocked and cycle time reduction trends</p>
+        </div>
+        <TimeFilter value={timeRange} onValueChange={setTimeRange} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
+import { TimeFilter } from "@/components/ui/time-filter";
 
 const vendorExposure = [
   { vendor: "Vendor A", exposure: 8.5, risk: "low" },
@@ -24,11 +26,16 @@ const overdueData = [
 ];
 
 export const CreditExposureView = () => {
+  const [timeRange, setTimeRange] = useState("90d");
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-foreground">Credit Exposure</h2>
-        <p className="text-muted-foreground mt-2">Vendor-level exposure and risk distribution</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-foreground">Credit Exposure</h2>
+          <p className="text-muted-foreground mt-2">Vendor-level exposure and risk distribution</p>
+        </div>
+        <TimeFilter value={timeRange} onValueChange={setTimeRange} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

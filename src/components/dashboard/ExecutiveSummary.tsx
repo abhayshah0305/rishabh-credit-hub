@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { KpiCard } from "./KpiCard";
 import { Card } from "@/components/ui/card";
-import { TrendingUp, Clock, FileText, DollarSign, CheckCircle, AlertTriangle, Info } from "lucide-react";
+import { TrendingUp, Clock, FileText, DollarSign, CheckCircle, AlertTriangle, Info, Scale, UserPlus } from "lucide-react";
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { TimeFilter } from "@/components/ui/time-filter";
 
 const monthlyTrend = [
   { month: "Jan", capital: 32, invoices: 890, repayment: 94.2 },
@@ -175,14 +177,19 @@ const vendorData = [
 ];
 
 export const ExecutiveSummary = () => {
+  const [timeRange, setTimeRange] = useState("30d");
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-foreground">Executive Summary</h2>
-        <p className="text-muted-foreground mt-2">High-level performance metrics at a glance</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-foreground">Executive Summary</h2>
+          <p className="text-muted-foreground mt-2">High-level performance metrics at a glance</p>
+        </div>
+        <TimeFilter value={timeRange} onValueChange={setTimeRange} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <KpiCard
           title="Total Working Capital Unlocked"
           value="₹45.2 Cr"
@@ -236,6 +243,24 @@ export const ExecutiveSummary = () => {
           trend="up"
           icon={<AlertTriangle className="h-6 w-6" />}
           tooltip="Rishabh World's remaining financial exposure after risk transfer to NBFC. Lower exposure indicates successful risk mitigation strategy."
+        />
+        <KpiCard
+          title="Legal Disputes"
+          value="7 Cases"
+          change={40.0}
+          changeLabel="₹2.1 Cr involved"
+          trend="down"
+          icon={<Scale className="h-6 w-6" />}
+          tooltip="Vendors who exceeded credit periods leading to legal disputes. Includes 7 active cases worth ₹2.1 Cr from 5 vendors with payment defaults beyond 90+ days."
+        />
+        <KpiCard
+          title="New Vendor Onboarding"
+          value="42 Vendors"
+          change={25.7}
+          changeLabel="this quarter"
+          trend="up"
+          icon={<UserPlus className="h-6 w-6" />}
+          tooltip="New vendors successfully onboarded to the credit enablement program this quarter, expanding the ecosystem and increasing program adoption."
         />
       </div>
 

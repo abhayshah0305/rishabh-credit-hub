@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ZAxis } from "recharts";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
+import { TimeFilter } from "@/components/ui/time-filter";
 
 const scoreDistribution = [
   { tier: "A (90-100)", count: 145 },
@@ -22,11 +24,16 @@ const behaviourData = [
 ];
 
 export const VendorPerformanceView = () => {
+  const [timeRange, setTimeRange] = useState("90d");
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-foreground">Vendor Performance & Behaviour</h2>
-        <p className="text-muted-foreground mt-2">Credit scores, purchase patterns, and repayment behavior</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-foreground">Vendor Performance & Behaviour</h2>
+          <p className="text-muted-foreground mt-2">Credit scores, purchase patterns, and repayment behavior</p>
+        </div>
+        <TimeFilter value={timeRange} onValueChange={setTimeRange} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -152,37 +159,75 @@ export const VendorPerformanceView = () => {
             </UITooltip>
           </TooltipProvider>
         </div>
-        <ResponsiveContainer width="100%" height={350}>
-          <ScatterChart>
+        <ResponsiveContainer width="100%" height={400}>
+          <ScatterChart 
+            data={behaviourData}
+            margin={{ top: 20, right: 30, bottom: 60, left: 80 }}
+          >
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
             <XAxis 
               type="number" 
               dataKey="purchases" 
               name="Purchase Cycles" 
-              className="text-xs"
-              label={{ value: "Monthly Purchase Cycles", position: "insideBottom", offset: -5 }}
+              domain={[5, 30]}
+              tick={{ fontSize: 12 }}
+              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              label={{ 
+                value: "Monthly Purchase Cycles", 
+                position: "insideBottom", 
+                offset: -10,
+                style: { textAnchor: "middle", fontSize: "12px", fill: "hsl(var(--muted-foreground))" }
+              }}
             />
             <YAxis 
               type="number" 
               dataKey="repaymentTime" 
               name="Avg Repayment (Days)" 
-              className="text-xs"
-              label={{ value: "Avg Repayment Time (Days)", angle: -90, position: "insideLeft" }}
+              domain={[15, 45]}
+              tick={{ fontSize: 12 }}
+              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
+              label={{ 
+                value: "Average Repayment Time (Days)", 
+                angle: -90, 
+                position: "insideLeft",
+                style: { textAnchor: "middle", fontSize: "12px", fill: "hsl(var(--muted-foreground))" }
+              }}
             />
-            <ZAxis type="number" dataKey="disputes" range={[50, 400]} name="Disputes" />
+            <ZAxis 
+              type="number" 
+              dataKey="disputes" 
+              range={[80, 300]} 
+              name="Disputes"
+            />
             <Tooltip 
-              cursor={{ strokeDasharray: "3 3" }}
+              cursor={{ strokeDasharray: "3 3", stroke: "hsl(var(--muted-foreground))", strokeWidth: 1 }}
               contentStyle={{ 
                 backgroundColor: "hsl(var(--card))", 
                 border: "1px solid hsl(var(--border))",
-                borderRadius: "var(--radius)"
+                borderRadius: "var(--radius)",
+                fontSize: "12px"
               }}
+              formatter={(value, name) => {
+                if (name === "Purchase Cycles") return [value, "Monthly Purchase Cycles"];
+                if (name === "Avg Repayment (Days)") return [value + " days", "Average Repayment Time"];
+                if (name === "Disputes") return [value, "Number of Disputes"];
+                return [value, name];
+              }}
+              labelFormatter={(label) => `Vendor: ${label || "Unknown"}`}
             />
-            <Legend />
+            <Legend 
+              wrapperStyle={{ paddingTop: "20px" }}
+              iconType="circle"
+            />
             <Scatter 
               name="Vendors" 
               data={behaviourData} 
-              fill="hsl(var(--chart-1))" 
+              fill="hsl(var(--chart-1))"
+              stroke="hsl(var(--chart-1))"
+              strokeWidth={2}
+              fillOpacity={0.6}
             />
           </ScatterChart>
         </ResponsiveContainer>
