@@ -122,5 +122,22 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.65rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  h4 {
+    font-size: 0.9rem;
   }
 }
