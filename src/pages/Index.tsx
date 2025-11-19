@@ -4,7 +4,6 @@ import { ExecutiveSummary } from "@/components/dashboard/ExecutiveSummary";
 import { WorkingCapitalView } from "@/components/dashboard/WorkingCapitalView";
 import { CreditExposureView } from "@/components/dashboard/CreditExposureView";
 import { VendorPerformanceView } from "@/components/dashboard/VendorPerformanceView";
-import { OperationalEfficiencyView } from "@/components/dashboard/OperationalEfficiencyView";
 import { AlertsView } from "@/components/dashboard/AlertsView";
 
 const Index = () => {
@@ -20,8 +19,6 @@ const Index = () => {
         return <CreditExposureView />;
       case "vendors":
         return <VendorPerformanceView />;
-      case "efficiency":
-        return <OperationalEfficiencyView />;
       case "alerts":
         return <AlertsView />;
       case "reports":
