@@ -5,6 +5,7 @@ import { WorkingCapitalView } from "@/components/dashboard/WorkingCapitalView";
 import { CreditExposureView } from "@/components/dashboard/CreditExposureView";
 import { VendorPerformanceView } from "@/components/dashboard/VendorPerformanceView";
 import { AlertsView } from "@/components/dashboard/AlertsView";
+import { ReportsView } from "@/components/dashboard/ReportsView";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("summary");
@@ -22,13 +23,7 @@ const Index = () => {
       case "alerts":
         return <AlertsView />;
       case "reports":
-        return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-3xl font-bold text-foreground">Monthly Reports</h2>
-            </div>
-          </div>
-        );
+        return <ReportsView />;
       default:
         return <ExecutiveSummary />;
     }

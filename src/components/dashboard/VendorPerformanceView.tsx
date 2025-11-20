@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { BarChart, Bar, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ZAxis } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 import { TimeFilter } from "@/components/ui/time-filter";
@@ -12,16 +12,6 @@ const scoreDistribution = [
   { tier: "D (<60)", count: 12 },
 ];
 
-const behaviourData = [
-  { purchases: 12, repaymentTime: 28, disputes: 0, vendor: "V1" },
-  { purchases: 18, repaymentTime: 25, disputes: 1, vendor: "V2" },
-  { purchases: 8, repaymentTime: 35, disputes: 2, vendor: "V3" },
-  { purchases: 22, repaymentTime: 22, disputes: 0, vendor: "V4" },
-  { purchases: 15, repaymentTime: 30, disputes: 1, vendor: "V5" },
-  { purchases: 25, repaymentTime: 20, disputes: 0, vendor: "V6" },
-  { purchases: 10, repaymentTime: 40, disputes: 3, vendor: "V7" },
-  { purchases: 20, repaymentTime: 24, disputes: 0, vendor: "V8" },
-];
 
 export const VendorPerformanceView = () => {
   const [timeRange, setTimeRange] = useState("90d");
@@ -145,96 +135,6 @@ export const VendorPerformanceView = () => {
         </Card>
       </div>
 
-      <Card className="p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <h3 className="text-lg font-semibold">Purchase Cycles vs Repayment Time</h3>
-          <TooltipProvider>
-            <UITooltip>
-              <TooltipTrigger asChild>
-                <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
-                <p className="text-sm">Scatter plot showing relationship between vendor purchase frequency and average repayment time. Bubble size indicates dispute frequency. Helps identify patterns in vendor behavior.</p>
-              </TooltipContent>
-            </UITooltip>
-          </TooltipProvider>
-        </div>
-        <ResponsiveContainer width="100%" height={400}>
-          <ScatterChart 
-            data={behaviourData}
-            margin={{ top: 20, right: 30, bottom: 60, left: 80 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-            <XAxis 
-              type="number" 
-              dataKey="purchases" 
-              name="Purchase Cycles" 
-              domain={[5, 30]}
-              tick={{ fontSize: 12 }}
-              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              label={{ 
-                value: "Monthly Purchase Cycles", 
-                position: "insideBottom", 
-                offset: -10,
-                style: { textAnchor: "middle", fontSize: "12px", fill: "hsl(var(--muted-foreground))" }
-              }}
-            />
-            <YAxis 
-              type="number" 
-              dataKey="repaymentTime" 
-              name="Avg Repayment (Days)" 
-              domain={[15, 45]}
-              tick={{ fontSize: 12 }}
-              tickLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              axisLine={{ stroke: "hsl(var(--muted-foreground))" }}
-              label={{ 
-                value: "Average Repayment Time (Days)", 
-                angle: -90, 
-                position: "insideLeft",
-                style: { textAnchor: "middle", fontSize: "12px", fill: "hsl(var(--muted-foreground))" }
-              }}
-            />
-            <ZAxis 
-              type="number" 
-              dataKey="disputes" 
-              range={[80, 300]} 
-              name="Disputes"
-            />
-            <Tooltip 
-              cursor={{ strokeDasharray: "3 3", stroke: "hsl(var(--muted-foreground))", strokeWidth: 1 }}
-              contentStyle={{ 
-                backgroundColor: "hsl(var(--card))", 
-                border: "1px solid hsl(var(--border))",
-                borderRadius: "var(--radius)",
-                fontSize: "12px"
-              }}
-              formatter={(value, name) => {
-                if (name === "Purchase Cycles") return [value, "Monthly Purchase Cycles"];
-                if (name === "Avg Repayment (Days)") return [value + " days", "Average Repayment Time"];
-                if (name === "Disputes") return [value, "Number of Disputes"];
-                return [value, name];
-              }}
-              labelFormatter={(label) => `Vendor: ${label || "Unknown"}`}
-            />
-            <Legend 
-              wrapperStyle={{ paddingTop: "20px" }}
-              iconType="circle"
-            />
-            <Scatter 
-              name="Vendors" 
-              data={behaviourData} 
-              fill="hsl(var(--chart-1))"
-              stroke="hsl(var(--chart-1))"
-              strokeWidth={2}
-              fillOpacity={0.6}
-            />
-          </ScatterChart>
-        </ResponsiveContainer>
-        <p className="text-xs text-muted-foreground mt-2 text-center">
-          Bubble size represents dispute frequency
-        </p>
-      </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
